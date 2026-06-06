@@ -14,4 +14,6 @@ export interface Viatura {
   proximaTrocaOleo: number;
   proximaTrocaPneus: number;
   observacao?: string;
+  pecasPendentes?: string[];
+  servicosPendentes?: string[];
 }

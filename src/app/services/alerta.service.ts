@@ -20,6 +20,7 @@ export class AlertaService {
     this.adicionarAlertasValidade(alertas);
     this.adicionarAlertasEstoque(alertas);
     this.adicionarAlertasViaturas(alertas);
+    this.adicionarAlertasTrocas(alertas);
 
     return alertas;
   }
@@ -77,12 +78,42 @@ export class AlertaService {
         return;
       }
 
+      const pecas = viatura.pecasPendentes?.join(', ') || 'Nenhuma';
+      const servicos = viatura.servicosPendentes?.join(', ') || 'Nenhum';
+
       alertas.push({
         tipo: 'VIATURA',
-        titulo: `Viatura baixada: ${viatura.prefixo}`,
-        descricao: `${viatura.prefixo} está baixada`,
+        titulo: `🚑 ${viatura.prefixo} baixada`,
+        descricao: `Peças: ${pecas} | Serviços: ${servicos}`,
         prioridade: 'ALTA'
       });
+    });
+  }
+
+  private adicionarAlertasTrocas(alertas: Alerta[]): void {
+    const viaturas = this.viaturaService.getAll();
+
+    viaturas.forEach(viatura => {
+      const kmOleo = viatura.proximaTrocaOleo - viatura.odometroAtual;
+      const kmPneus = viatura.proximaTrocaPneus - viatura.odometroAtual;
+
+      if (kmOleo <= 500 && kmOleo > 0) {
+        alertas.push({
+          tipo: 'TROCA_OLEO',
+          titulo: `⚠ ${viatura.prefixo} - Troca de óleo próxima`,
+          descricao: `${kmOleo} km restantes para troca`,
+          prioridade: kmOleo <= 200 ? 'ALTA' : 'MEDIA'
+        });
+      }
+
+      if (kmPneus <= 500 && kmPneus > 0) {
+        alertas.push({
+          tipo: 'TROCA_PNEUS',
+          titulo: `⚠ ${viatura.prefixo} - Troca de pneus próxima`,
+          descricao: `${kmPneus} km restantes para troca`,
+          prioridade: kmPneus <= 200 ? 'ALTA' : 'MEDIA'
+        });
+      }
     });
   }
 }

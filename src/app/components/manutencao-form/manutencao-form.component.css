@@ -1,0 +1,114 @@
+.manutencao-form {
+  padding: 16px;
+  background: var(--surface);
+  border-radius: 8px;
+}
+
+.manutencao-form h3 {
+  margin-top: 0;
+}
+
+.field {
+  margin-bottom: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.field label {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.field input,
+.field textarea {
+  padding: 8px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--surface-strong);
+  color: var(--text);
+  font-family: inherit;
+}
+
+.field textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.pecas-lista {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.peca-item button {
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  background: var(--surface-strong);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.peca-item button:hover {
+  background: var(--surface);
+}
+
+.pecas-selecionadas {
+  padding: 8px;
+  background: var(--surface-strong);
+  border-radius: 4px;
+  margin-top: 8px;
+}
+
+.pecas-selecionadas h4 {
+  margin: 0 0 8px 0;
+  font-size: 0.9rem;
+}
+
+.peca-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  background: var(--border);
+  border-radius: 12px;
+  margin: 2px;
+  font-size: 0.85rem;
+}
+
+.peca-tag button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  font-weight: bold;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.actions button {
+  padding: 10px 16px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--surface-strong);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.actions button:hover {
+  background: var(--surface);
+}
+
+.actions button:first-child {
+  background: var(--primary, #0066cc);
+  color: white;
+}
+
+.actions button:first-child:hover {
+  background: var(--primary-dark, #0052a3);
+}

@@ -1,5 +1,5 @@
 export interface Alerta {
-  tipo: 'VALIDADE' | 'ESTOQUE' | 'VIATURA';
+  tipo: 'VALIDADE' | 'ESTOQUE' | 'VIATURA' | 'TROCA_OLEO' | 'TROCA_PNEUS';
 
   titulo: string;
 

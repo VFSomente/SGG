@@ -5,56 +5,78 @@
     <app-viatura-card [viatura]="viatura"></app-viatura-card>
 
     <nav class="tabs">
-      <button (click)="setTab('ficha')" [class.active]="activeTab==='ficha'">Ficha Técnica</button>
-      <button (click)="setTab('missoes')" [class.active]="activeTab==='missoes'">Missões</button>
-      <button (click)="setTab('manutencoes')" [class.active]="activeTab==='manutencoes'">Manutenções</button>
+      <button (click)="selecionarAba('FICHA')" [class.active]="abaAtiva==='FICHA'">Ficha Técnica</button>
+      <button (click)="selecionarAba('MISSOES')" [class.active]="abaAtiva==='MISSOES'">Missões</button>
+      <button (click)="selecionarAba('MANUTENCOES')" [class.active]="abaAtiva==='MANUTENCOES'">Manutenções</button>
     </nav>
 
-    <section *ngIf="activeTab === 'ficha'" class="tab-body">
+    <section *ngIf="abaAtiva === 'FICHA'" class="tab-body">
       <h3>Ficha Técnica</h3>
       <div class="grid">
         <div><strong>Placa:</strong> {{ viatura.placa }}</div>
         <div><strong>Modelo:</strong> {{ viatura.modelo }}</div>
+        <div><strong>Marca:</strong> {{ viatura.marca }}</div>
         <div><strong>Ano:</strong> {{ viatura.ano }}</div>
         <div><strong>Chassi:</strong> {{ viatura.chassi }}</div>
+        <div><strong>Tipo:</strong> {{ viatura.tipo }}</div>
+        <div><strong>Status:</strong> {{ viatura.status }}</div>
         <div><strong>Tipo de Óleo:</strong> {{ viatura.tipoOleo }}</div>
-        <div><strong>Tanque:</strong> {{ viatura.capacidadeTanque }} L</div>
+        <div><strong>Capacidade do Tanque:</strong> {{ viatura.capacidadeTanque }} L</div>
         <div><strong>Odômetro Atual:</strong> {{ viatura.odometroAtual }} km</div>
-        <div><strong>Próxima Troca de Óleo:</strong> {{ viatura.proximaTrocaOleo }} km</div>
-        <div><strong>Próxima Troca de Pneus:</strong> {{ viatura.proximaTrocaPneus }} km</div>
+        <div class="indicators">
+          <div><strong>Troca de Óleo:</strong> {{ getKmParaTrocaOleo() }} km restantes</div>
+          <div><strong>Troca de Pneus:</strong> {{ getKmParaTrocaPneus() }} km restantes</div>
+        </div>
       </div>
     </section>
 
-    <section *ngIf="activeTab === 'missoes'" class="tab-body">
+    <section *ngIf="abaAtiva === 'MISSOES'" class="tab-body">
       <div class="actions"><button (click)="adicionarMissao()">+ Nova Missão</button></div>
       <table class="table">
         <thead>
           <tr><th>Data</th><th>Saída</th><th>Chegada</th><th>Km Saída</th><th>Km Chegada</th><th>Missão</th></tr>
         </thead>
         <tbody>
-          <tr *ngFor="let m of missoes">
-            <td>{{ m.data }}</td>
-            <td>{{ m.horaSaida }}</td>
-            <td>{{ m.horaChegada }}</td>
-            <td>{{ m.kmSaida }}</td>
-            <td>{{ m.kmChegada }}</td>
-            <td>{{ m.missao }}</td>
+          <tr *ngFor="let missao of missoes">
+            <td>{{ missao.data }}</td>
+            <td>{{ missao.horaSaida }}</td>
+            <td>{{ missao.horaChegada }}</td>
+            <td>{{ missao.kmSaida }}</td>
+            <td>{{ missao.kmChegada }}</td>
+            <td>{{ missao.missao }}</td>
           </tr>
         </tbody>
       </table>
     </section>
 
-    <section *ngIf="activeTab === 'manutencoes'" class="tab-body">
-      <div class="actions"><button (click)="adicionarManutencao()">+ Registrar Manutenção</button></div>
-      <table class="table">
+    <section *ngIf="abaAtiva === 'MANUTENCOES'" class="tab-body">
+      <div class="actions"><button (click)="abrirFormularioManutencao()">+ Registrar Manutenção</button></div>
+      
+      <div *ngIf="mostrarFormularioManutencao" class="form-panel">
+        <app-manutencao-form
+          [viaturaId]="viatura.id"
+          [manutencao]="manutencaoEditando"
+          (salvar)="salvarManutencao($event)"
+          (fechar)="fecharFormularioManutencao()">
+        </app-manutencao-form>
+      </div>
+
+      <table class="table" *ngIf="!mostrarFormularioManutencao">
         <thead>
-          <tr><th>Data</th><th>Serviço</th><th>Profissional</th></tr>
+          <tr><th>Data</th><th>Serviço</th><th>Profissional</th><th>Peças</th><th>Observação</th></tr>
         </thead>
         <tbody>
           <tr *ngFor="let m of manutencoes">
             <td>{{ m.data }}</td>
             <td>{{ m.servico }}</td>
             <td>{{ m.profissional }}</td>
+            <td>
+              <ul *ngIf="m.pecasUtilizadas.length">
+                <li *ngFor="let peca of m.pecasUtilizadas">{{ peca }}</li>
+              </ul>
+              <span *ngIf="!m.pecasUtilizadas.length">—</span>
+            </td>
+            <td>{{ m.observacao }}</td>
           </tr>
         </tbody>
       </table>

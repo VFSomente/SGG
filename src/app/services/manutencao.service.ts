@@ -25,17 +25,34 @@ export class ManutencaoService {
     this.subject.next(list);
   }
 
+  getAll(): Manutencao[] {
+    return this.subject.value;
+  }
+
+  getByViatura(viaturaId: string): Manutencao[] {
+    return this.getAll().filter(m => m.viaturaId === viaturaId);
+  }
+
   getByViaturaId(viaturaId: string): Manutencao[] {
-    return this.subject.value.filter(m => m.viaturaId === viaturaId);
+    return this.getByViatura(viaturaId);
   }
 
   add(m: Manutencao): void {
-    const list = this.subject.value;
+    const list = this.getAll();
     list.push(m);
     this.save(list);
   }
 
+  update(m: Manutencao): void {
+    const list = this.getAll();
+    const idx = list.findIndex(x => x.id === m.id);
+    if (idx !== -1) {
+      list[idx] = m;
+      this.save(list);
+    }
+  }
+
   delete(id: string): void {
-    this.save(this.subject.value.filter(m => m.id !== id));
+    this.save(this.getAll().filter(m => m.id !== id));
   }
 }

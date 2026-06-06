@@ -4,6 +4,7 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Viatura } from '../../models/viatura.model';
 import { ViaturaService } from '../../services/viatura.service';
 import { ViaturaCardComponent } from '../../components/viatura-card/viatura-card.component';
+import { ManutencaoFormComponent } from '../../components/manutencao-form/manutencao-form.component';
 import { MissaoService } from '../../services/missao.service';
 import { ManutencaoService } from '../../services/manutencao.service';
 import { Missao } from '../../models/missao.model';
@@ -12,7 +13,7 @@ import { Manutencao } from '../../models/manutencao.model';
 @Component({
   selector: 'app-viatura-detalhe',
   standalone: true,
-  imports: [CommonModule, RouterModule, ViaturaCardComponent],
+  imports: [CommonModule, RouterModule, ViaturaCardComponent, ManutencaoFormComponent],
   templateUrl: './viatura-detalhe.component.html',
   styleUrls: ['./viatura-detalhe.component.css']
 })
@@ -22,6 +23,9 @@ export class ViaturaDetalhe implements OnInit {
   manutencoes: Manutencao[] = [];
 
   abaAtiva: 'FICHA' | 'MISSOES' | 'MANUTENCOES' = 'FICHA';
+
+  mostrarFormularioManutencao = false;
+  manutencaoEditando?: Manutencao;
 
   constructor(
     private route: ActivatedRoute,
@@ -43,6 +47,30 @@ export class ViaturaDetalhe implements OnInit {
 
   selecionarAba(aba: 'FICHA' | 'MISSOES' | 'MANUTENCOES'): void {
     this.abaAtiva = aba;
+  }
+
+  abrirFormularioManutencao(manutencao?: Manutencao): void {
+    this.manutencaoEditando = manutencao;
+    this.mostrarFormularioManutencao = true;
+  }
+
+  fecharFormularioManutencao(): void {
+    this.mostrarFormularioManutencao = false;
+    this.manutencaoEditando = undefined;
+  }
+
+  salvarManutencao(manutencao: Manutencao): void {
+    if (this.manutencaoEditando) {
+      this.manutencaoService.update(manutencao);
+    } else {
+      this.manutencaoService.add(manutencao);
+    }
+
+    if (this.viatura) {
+      this.manutencoes = this.manutencaoService.getByViaturaId(this.viatura.id);
+    }
+
+    this.fecharFormularioManutencao();
   }
 
   async adicionarMissao() {
@@ -76,23 +104,14 @@ export class ViaturaDetalhe implements OnInit {
     this.viatura = this.viaturaService.getById(this.viatura.id);
   }
 
-  adicionarManutencao() {
-    if (!this.viatura) return;
-    const servico = prompt('Serviço:');
-    const profissional = prompt('Profissional:');
-    if (!servico) return;
+  getKmParaTrocaOleo(): number {
+    if (!this.viatura) return 0;
+    return this.viatura.proximaTrocaOleo - this.viatura.odometroAtual;
+  }
 
-    const nova: Manutencao = {
-      id: Date.now().toString(36),
-      viaturaId: this.viatura.id,
-      data: new Date().toISOString().split('T')[0],
-      servico,
-      profissional: profissional || '',
-      observacao: ''
-    };
-
-    this.manutencaoService.add(nova);
-    this.manutencoes = this.manutencaoService.getByViaturaId(this.viatura.id);
+  getKmParaTrocaPneus(): number {
+    if (!this.viatura) return 0;
+    return this.viatura.proximaTrocaPneus - this.viatura.odometroAtual;
   }
 }
 

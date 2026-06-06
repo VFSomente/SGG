@@ -4,5 +4,7 @@ export interface Manutencao {
   data: string;
   servico: string;
   profissional: string;
-  observacao?: string;
+  observacao: string;
+  pecasUtilizadas: string[];
+  custo?: number;
 }

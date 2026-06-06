@@ -1,0 +1,51 @@
+<div class="manutencao-form">
+  <h3>{{ manutencao ? 'Editar Manutenção' : 'Registrar Manutenção' }}</h3>
+
+  <form [formGroup]="form" (ngSubmit)="salvarManutencao()">
+    <div class="field">
+      <label>Data</label>
+      <input type="date" formControlName="data" />
+    </div>
+
+    <div class="field">
+      <label>Serviço</label>
+      <input type="text" placeholder="Ex: Troca de óleo" formControlName="servico" />
+    </div>
+
+    <div class="field">
+      <label>Profissional</label>
+      <input type="text" placeholder="Ex: João da Silva" formControlName="profissional" />
+    </div>
+
+    <div class="field">
+      <label>Observação</label>
+      <textarea placeholder="Detalhes adicionais..." formControlName="observacao"></textarea>
+    </div>
+
+    <div class="field">
+      <label>Custo (Opcional)</label>
+      <input type="number" placeholder="0.00" formControlName="custo" />
+    </div>
+
+    <div class="field">
+      <label>Peças Utilizadas</label>
+      <div class="pecas-lista">
+        <div *ngFor="let peca of pecasDisponiveis" class="peca-item">
+          <button type="button" (click)="adicionarPeca(peca)">+ {{ peca.nome }}</button>
+        </div>
+      </div>
+      <div *ngIf="form.get('pecasUtilizadas')?.value?.length" class="pecas-selecionadas">
+        <h4>Selecionadas:</h4>
+        <div *ngFor="let pecaId of form.get('pecasUtilizadas')?.value" class="peca-tag">
+          {{ getNomePeca(pecaId) }}
+          <button type="button" (click)="removerPeca(pecaId)">✕</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button type="submit">Salvar</button>
+      <button type="button" (click)="cancelar()">Cancelar</button>
+    </div>
+  </form>
+</div>

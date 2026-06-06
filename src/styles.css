@@ -1,1 +1,54 @@
 /* You can add global styles to this file, and also import other style files */
+
+:root {
+	color-scheme: light dark;
+	--background: #f8fafc;
+	--surface: #ffffff;
+	--surface-strong: #f8fafc;
+	--text: #111827;
+	--muted: #6b7280;
+	--border: #e5e7eb;
+	--shadow: 0 3px 10px rgba(15, 23, 42, 0.08);
+	--primary: #2563eb;
+	--primary-strong: #1d4ed8;
+	--danger: #dc2626;
+}
+
+.dark-theme {
+	--background: #0f172a;
+	--surface: #111827;
+	--surface-strong: #1f2937;
+	--text: #f8fafc;
+	--muted: #94a3b8;
+	--border: #334155;
+	--shadow: 0 3px 15px rgba(15, 23, 42, 0.45);
+	--primary: #3b82f6;
+	--primary-strong: #60a5fa;
+	--danger: #f87171;
+}
+
+html {
+	font-family: Inter, system-ui, sans-serif;
+}
+
+body {
+	margin: 0;
+	min-height: 100vh;
+	background: var(--background);
+	color: var(--text);
+}
+
+* {
+	box-sizing: border-box;
+}
+
+a {
+	color: inherit;
+}
+
+button,
+input,
+select,
+textarea {
+	font: inherit;
+}

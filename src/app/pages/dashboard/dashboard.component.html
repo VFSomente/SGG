@@ -1,0 +1,87 @@
+<div class="dashboard">
+
+	<h1>SGG - Sistema de Gestão da Garagem</h1>
+
+	<div class="dashboard-actions">
+		<a routerLink="/viaturas" class="goto-viaturas">
+			Ver Viaturas
+		</a>
+	</div>
+
+	<div class="cards">
+
+		<div class="card">
+			<h3>Materiais</h3>
+			<span>{{ totalMateriais }}</span>
+		</div>
+
+		<div class="card">
+			<h3>Viaturas</h3>
+			<span>{{ totalViaturas }}</span>
+		</div>
+
+		<div class="card alerta">
+			<h3>Itens Vencendo</h3>
+			<span>{{ itensVencendo }}</span>
+		</div>
+
+		<div class="card baixada">
+			<h3>Baixadas</h3>
+			<span>{{ viaturasBaixadas }}</span>
+		</div>
+
+	</div>
+
+  <div class="alertas">
+    <h2>Alertas Importantes</h2>
+
+    <div
+      class="alerta-card"
+      *ngFor="let alerta of alertas"
+      [ngClass]="alerta.prioridade.toLowerCase()">
+
+      <h3>{{ alerta.titulo }}</h3>
+      <p>{{ alerta.descricao }}</p>
+    </div>
+  </div>
+
+  <div class="viaturas-destaque">
+    <h2>Viaturas em Destaque</h2>
+
+    <div class="viatura-card" *ngFor="let viatura of viaturasRecentes">
+      <h3>🚑 {{ viatura.prefixo }}</h3>
+      <p>Status: {{ viatura.status }}</p>
+    </div>
+  </div>
+
+  <section class="painel">
+
+		<h2>Resumo do Sistema</h2>
+
+		<ul>
+
+			<li>
+				📦 {{ totalMateriais }}
+				materiais cadastrados
+			</li>
+
+			<li>
+				🚑 {{ totalViaturas }}
+				viaturas cadastradas
+			</li>
+
+			<li>
+				⚠ {{ itensVencendo }}
+				materiais próximos do vencimento
+			</li>
+
+			<li>
+				🔧 {{ viaturasBaixadas }}
+				viaturas baixadas
+			</li>
+
+		</ul>
+
+	</section>
+
+</div>

@@ -1,0 +1,59 @@
+<div class="dashboard">
+
+  <h1>SGG - Sistema de Gestão da Garagem</h1>
+
+  <div class="cards">
+
+    <div class="card">
+      <h3>Materiais</h3>
+      <span>{{ totalMateriais }}</span>
+    </div>
+
+    <div class="card">
+      <h3>Viaturas</h3>
+      <span>{{ totalViaturas }}</span>
+    </div>
+
+    <div class="card alerta">
+      <h3>Itens Vencendo</h3>
+      <span>{{ itensVencendo }}</span>
+    </div>
+
+    <div class="card baixada">
+      <h3>Baixadas</h3>
+      <span>{{ viaturasBaixadas }}</span>
+    </div>
+
+  </div>
+
+  <section class="painel">
+
+    <h2>Resumo do Sistema</h2>
+
+    <ul>
+
+      <li>
+        📦 {{ totalMateriais }}
+        materiais cadastrados
+      </li>
+
+      <li>
+        🚑 {{ totalViaturas }}
+        viaturas cadastradas
+      </li>
+
+      <li>
+        ⚠ {{ itensVencendo }}
+        materiais próximos do vencimento
+      </li>
+
+      <li>
+        🔧 {{ viaturasBaixadas }}
+        viaturas baixadas
+      </li>
+
+    </ul>
+
+  </section>
+
+</div>

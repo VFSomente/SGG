@@ -1,0 +1,46 @@
+<div class="viaturas-page">
+
+  <header class="top-bar">
+    <div>
+      <h1>Viaturas</h1>
+      <p>Cadastro e listagem de viaturas do sistema.</p>
+    </div>
+
+    <div class="top-actions">
+      <a routerLink="/" class="back-dashboard">Voltar ao Dashboard</a>
+      <button type="button" (click)="abrirCadastro()">
+        + Nova Viatura
+      </button>
+    </div>
+  </header>
+
+  <div class="search-row">
+    <input type="text" placeholder="🔍 Pesquisar" [(ngModel)]="pesquisa" (input)="pesquisar()" />
+  </div>
+
+  <section class="viaturas-lista">
+    <div class="viatura-card" *ngFor="let viatura of viaturasFiltradas">
+      <a [routerLink]="['/viaturas/detalhe']" [queryParams]="{ id: viatura.id }">
+        <app-viatura-card [viatura]="viatura"></app-viatura-card>
+      </a>
+
+      <div class="viatura-actions">
+        <button type="button" (click)="editarViatura(viatura)">Editar</button>
+        <button type="button" class="danger" (click)="removerViatura(viatura.id)">Excluir</button>
+      </div>
+    </div>
+
+    <div class="empty-state" *ngIf="viaturasFiltradas.length === 0">
+      Nenhuma viatura encontrada.
+    </div>
+  </section>
+
+  <section class="form-panel" *ngIf="mostrarFormulario">
+    <app-viatura-form
+      [viatura]="viaturaEditando"
+      (salvar)="salvarViatura($event)"
+      (fechar)="fecharFormulario()">
+    </app-viatura-form>
+  </section>
+
+</div>

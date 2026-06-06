@@ -1,0 +1,13 @@
+<div class="viatura-card">
+  <div class="header">
+    <div class="prefixo">{{ viatura.prefixo }}</div>
+    <div class="status" [ngClass]="statusClass()">{{ viatura.status }}</div>
+  </div>
+
+  <div class="body">
+    <div><strong>Placa:</strong> {{ viatura.placa }}</div>
+    <div><strong>Modelo:</strong> {{ viatura.modelo }}</div>
+    <div><strong>Tipo:</strong> {{ viatura.tipo }}</div>
+    <div><strong>Odômetro:</strong> {{ viatura.odometroAtual }} km</div>
+  </div>
+</div>

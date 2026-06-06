@@ -1,0 +1,8 @@
+.viatura-card { border: 1px solid var(--border); padding: 12px; border-radius: 8px; background: var(--surface); }
+.viatura-card .header { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px }
+.prefixo { font-weight:600 }
+.status { padding:6px 10px; border-radius:999px; font-size:0.85rem }
+.status-ativa { background:#dff8e0; color:#1b5e20 }
+.status-manutencao { background:#fff6d6; color:#827717 }
+.status-baixada { background:#ffd6d6; color:#b71c1c }
+.viatura-card .body div { margin:4px 0 }

@@ -1,0 +1,95 @@
+<form [formGroup]="form" (ngSubmit)="salvarViatura()">
+
+  <div class="grid-2">
+    <label>
+      Prefixo
+      <input formControlName="prefixo" />
+    </label>
+
+    <label>
+      Placa
+      <input formControlName="placa" />
+    </label>
+  </div>
+
+  <div class="grid-2">
+    <label>
+      Modelo
+      <input formControlName="modelo" />
+    </label>
+
+    <label>
+      Marca
+      <input formControlName="marca" />
+    </label>
+  </div>
+
+  <div class="grid-2">
+    <label>
+      Ano
+      <input type="number" formControlName="ano" />
+    </label>
+
+    <label>
+      Chassi
+      <input formControlName="chassi" />
+    </label>
+  </div>
+
+  <div class="grid-2">
+    <label>
+      Tipo
+      <select formControlName="tipo">
+        <option *ngFor="let tipo of tipos" [value]="tipo">{{ tipo }}</option>
+      </select>
+    </label>
+
+    <label>
+      Status
+      <select formControlName="status">
+        <option *ngFor="let status of statusOptions" [value]="status">{{ status }}</option>
+      </select>
+    </label>
+  </div>
+
+  <div class="grid-2">
+    <label>
+      Tipo de Óleo
+      <input formControlName="tipoOleo" />
+    </label>
+
+    <label>
+      Capacidade do Tanque
+      <input type="number" formControlName="capacidadeTanque" />
+    </label>
+  </div>
+
+  <div class="grid-2">
+    <label>
+      Odômetro Atual
+      <input type="number" formControlName="odometroAtual" />
+    </label>
+
+    <label>
+      Próxima Troca de Óleo
+      <input type="number" formControlName="proximaTrocaOleo" />
+    </label>
+  </div>
+
+  <div class="grid-2">
+    <label>
+      Próxima Troca de Pneus
+      <input type="number" formControlName="proximaTrocaPneus" />
+    </label>
+
+    <label>
+      Observações
+      <textarea formControlName="observacao"></textarea>
+    </label>
+  </div>
+
+  <div class="actions">
+    <button type="submit">Salvar</button>
+    <button type="button" class="secondary" (click)="cancelar()">Cancelar</button>
+  </div>
+</form>

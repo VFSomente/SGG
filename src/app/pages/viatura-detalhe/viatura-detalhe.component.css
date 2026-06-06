@@ -1,0 +1,9 @@
+.viatura-detalhe a { display:inline-block; margin-bottom:12px }
+.tabs { display:flex; gap:8px; margin:12px 0 }
+.tabs button { padding:8px 12px; border-radius:8px; border:1px solid var(--border); background:var(--surface) }
+.tabs button.active { background:var(--surface-strong) }
+.tab-body { padding:12px; background:var(--surface); border-radius:8px }
+.grid { display:grid; grid-template-columns: 1fr 1fr; gap:8px }
+.table { width:100%; border-collapse:collapse; margin-top:8px }
+.table th, .table td { text-align:left; padding:8px; border-bottom:1px solid var(--border) }
+.actions { margin-bottom:8px }

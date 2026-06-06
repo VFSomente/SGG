@@ -1,0 +1,65 @@
+<div class="viatura-detalhe">
+  <a routerLink="/">← Voltar ao Dashboard</a>
+
+  <div *ngIf="viatura">
+    <app-viatura-card [viatura]="viatura"></app-viatura-card>
+
+    <nav class="tabs">
+      <button (click)="setTab('ficha')" [class.active]="activeTab==='ficha'">Ficha Técnica</button>
+      <button (click)="setTab('missoes')" [class.active]="activeTab==='missoes'">Missões</button>
+      <button (click)="setTab('manutencoes')" [class.active]="activeTab==='manutencoes'">Manutenções</button>
+    </nav>
+
+    <section *ngIf="activeTab === 'ficha'" class="tab-body">
+      <h3>Ficha Técnica</h3>
+      <div class="grid">
+        <div><strong>Placa:</strong> {{ viatura.placa }}</div>
+        <div><strong>Modelo:</strong> {{ viatura.modelo }}</div>
+        <div><strong>Ano:</strong> {{ viatura.ano }}</div>
+        <div><strong>Chassi:</strong> {{ viatura.chassi }}</div>
+        <div><strong>Tipo de Óleo:</strong> {{ viatura.tipoOleo }}</div>
+        <div><strong>Tanque:</strong> {{ viatura.capacidadeTanque }} L</div>
+        <div><strong>Odômetro Atual:</strong> {{ viatura.odometroAtual }} km</div>
+        <div><strong>Próxima Troca de Óleo:</strong> {{ viatura.proximaTrocaOleo }} km</div>
+        <div><strong>Próxima Troca de Pneus:</strong> {{ viatura.proximaTrocaPneus }} km</div>
+      </div>
+    </section>
+
+    <section *ngIf="activeTab === 'missoes'" class="tab-body">
+      <div class="actions"><button (click)="adicionarMissao()">+ Nova Missão</button></div>
+      <table class="table">
+        <thead>
+          <tr><th>Data</th><th>Saída</th><th>Chegada</th><th>Km Saída</th><th>Km Chegada</th><th>Missão</th></tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let m of missoes">
+            <td>{{ m.data }}</td>
+            <td>{{ m.horaSaida }}</td>
+            <td>{{ m.horaChegada }}</td>
+            <td>{{ m.kmSaida }}</td>
+            <td>{{ m.kmChegada }}</td>
+            <td>{{ m.missao }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section *ngIf="activeTab === 'manutencoes'" class="tab-body">
+      <div class="actions"><button (click)="adicionarManutencao()">+ Registrar Manutenção</button></div>
+      <table class="table">
+        <thead>
+          <tr><th>Data</th><th>Serviço</th><th>Profissional</th></tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let m of manutencoes">
+            <td>{{ m.data }}</td>
+            <td>{{ m.servico }}</td>
+            <td>{{ m.profissional }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </div>
+
+  <div *ngIf="!viatura">Viatura não encontrada.</div>
+</div>

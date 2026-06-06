@@ -1,0 +1,110 @@
+<div class="container">
+
+  <div class="top-bar">
+
+    <input
+      type="text"
+      placeholder="Pesquisar material..."
+      [(ngModel)]="pesquisa"
+      (input)="pesquisar()"
+    >
+
+    <button (click)="abrirNovoMaterial()">
+      Novo Material
+    </button>
+
+  </div>
+
+  <app-material-form
+    *ngIf="mostrarFormulario"
+    [material]="materialEditando"
+    (salvar)="salvarMaterial($event)"
+    (fechar)="fecharFormulario()">
+  </app-material-form>
+
+  <div class="categorias">
+
+    <button
+      *ngFor="let categoria of categorias"
+      (click)="filtrarCategoria(categoria)"
+      [class.active]="categoriaSelecionada === categoria">
+
+      {{ categoria }}
+
+    </button>
+
+  </div>
+
+  <div class="grid">
+
+    <div
+      class="card"
+      *ngFor="let material of materiaisFiltrados">
+
+      <div
+        class="categoria"
+        [style.background]="getCorCategoria(material.categoria)">
+      </div>
+
+      <img
+        [src]="material.imagem"
+        alt="material">
+
+      <h3>{{ material.nome }}</h3>
+
+      <p>
+        Estoque:
+        <strong>{{ material.quantidade }}</strong>
+      </p>
+
+      <p>
+        Categoria:
+        {{ material.categoria }}
+      </p>
+
+      <p>
+        Validade:
+        {{ material.validade }}
+      </p>
+
+      <span
+        *ngIf="isVencendo(material)"
+        class="alerta">
+
+        Vence em breve
+
+      </span>
+
+      <div class="acoes">
+
+        <button
+          class="entrada"
+          (click)="entrada(material)">
+          +
+        </button>
+
+        <button
+          class="saida"
+          (click)="saida(material)">
+          -
+        </button>
+
+        <button
+          class="delete"
+            (click)="excluir(material)">
+          Excluir
+        </button>
+
+          <button
+            class="edit"
+            (click)="editarMaterial(material)">
+            Editar
+          </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

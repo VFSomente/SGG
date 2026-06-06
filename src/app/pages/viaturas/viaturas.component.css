@@ -1,0 +1,108 @@
+.viaturas-page {
+  padding: 24px;
+}
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.top-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.back-dashboard {
+  display: inline-block;
+  padding: 10px 18px;
+  border-radius: 10px;
+  background: #e5e7eb;
+  color: #111827;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.back-dashboard:hover {
+  background: #d1d5db;
+}
+
+.top-bar h1 {
+  margin: 0;
+}
+
+.top-bar button {
+  padding: 12px 18px;
+  border: none;
+  border-radius: 8px;
+  background: var(--primary);
+  color: white;
+  cursor: pointer;
+}
+
+.viaturas-lista {
+  display: grid;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.viatura-card {
+  background: var(--surface);
+  padding: 18px;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  display: grid;
+  gap: 8px;
+}
+
+.viatura-main {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 1.1rem;
+}
+
+.viatura-subtitle {
+  color: var(--muted);
+}
+
+.viatura-status {
+  font-weight: 600;
+}
+
+.viatura-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.viatura-actions button {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  border-radius: 8px;
+  padding: 10px 14px;
+  cursor: pointer;
+}
+
+.viatura-actions .danger {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+.empty-state {
+  color: var(--muted);
+  padding: 28px;
+  background: var(--surface);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+
+.form-panel {
+  background: var(--surface);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: var(--shadow);
+}

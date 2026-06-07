@@ -31,19 +31,30 @@
     </section>
 
     <section *ngIf="abaAtiva === 'MISSOES'" class="tab-body">
-      <div class="actions"><button (click)="adicionarMissao()">+ Nova Missão</button></div>
-      <table class="table">
+      <div class="actions"><button (click)="abrirFormularioMissao()">+ Nova Missão</button></div>
+
+      <div class="form-panel">
+        <app-missao-form
+          *ngIf="mostrarFormularioMissao && viatura"
+          [viaturaId]="viatura.id"
+          [missao]="missaoEditando"
+          (salvar)="salvarMissao($event)"
+          (fechar)="fecharFormularioMissao()">
+        </app-missao-form>
+      </div>
+
+      <table class="table" *ngIf="!mostrarFormularioMissao">
         <thead>
           <tr><th>Data</th><th>Saída</th><th>Chegada</th><th>Km Saída</th><th>Km Chegada</th><th>Missão</th></tr>
         </thead>
         <tbody>
           <tr *ngFor="let missao of missoes">
-            <td>{{ missao.data }}</td>
-            <td>{{ missao.horaSaida }}</td>
-            <td>{{ missao.horaChegada }}</td>
-            <td>{{ missao.kmSaida }}</td>
-            <td>{{ missao.kmChegada }}</td>
-            <td>{{ missao.missao }}</td>
+            <td data-label="Data">{{ missao.data }}</td>
+            <td data-label="Saída">{{ missao.horaSaida }}</td>
+            <td data-label="Chegada">{{ missao.horaChegada }}</td>
+            <td data-label="Km Saída">{{ missao.kmSaida }}</td>
+            <td data-label="Km Chegada">{{ missao.kmChegada }}</td>
+            <td data-label="Missão">{{ missao.missao }}</td>
           </tr>
         </tbody>
       </table>
@@ -67,16 +78,16 @@
         </thead>
         <tbody>
           <tr *ngFor="let m of manutencoes">
-            <td>{{ m.data }}</td>
-            <td>{{ m.servico }}</td>
-            <td>{{ m.profissional }}</td>
-            <td>
+            <td data-label="Data">{{ m.data }}</td>
+            <td data-label="Serviço">{{ m.servico }}</td>
+            <td data-label="Profissional">{{ m.profissional }}</td>
+            <td data-label="Peças">
               <ul *ngIf="m.pecasUtilizadas.length">
                 <li *ngFor="let peca of m.pecasUtilizadas">{{ peca }}</li>
               </ul>
               <span *ngIf="!m.pecasUtilizadas.length">—</span>
             </td>
-            <td>{{ m.observacao }}</td>
+            <td data-label="Observação">{{ m.observacao }}</td>
           </tr>
         </tbody>
       </table>

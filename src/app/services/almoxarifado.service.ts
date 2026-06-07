@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Material } from '../models/material.model';
 import { StorageService } from './storage.service';
+import { MovimentacaoService } from './movimentacao.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,8 @@ export class AlmoxarifadoService {
   materiais$ = this.materiaisSubject.asObservable();
 
   constructor(
-    private storage: StorageService
+    private storage: StorageService,
+    private movimentacaoService: MovimentacaoService
   ) {
     this.load();
   }
@@ -35,6 +37,10 @@ export class AlmoxarifadoService {
 
   getAll(): Material[] {
     return this.materiaisSubject.value;
+  }
+
+  getById(id: string): Material | undefined {
+    return this.getAll().find(m => m.id === id);
   }
 
   add(material: Material): void {
@@ -76,17 +82,67 @@ export class AlmoxarifadoService {
   }
 
   saida(id: string, quantidade: number): void {
-    const item =
-      this.getAll().find(x => x.id === id);
+    this.registrarSaida(id, quantidade, 'Sistema');
+  }
 
-    if (!item) return;
+  registrarEntrada(
+    materialId: string,
+    quantidade: number,
+    responsavel: string,
+    observacao?: string
+  ): void {
+    const material = this.getById(materialId);
 
-    item.quantidade -= quantidade;
-
-    if (item.quantidade < 0) {
-      item.quantidade = 0;
+    if (!material) {
+      return;
     }
 
-    this.update(item);
+    material.quantidade += quantidade;
+    this.update(material);
+
+    this.movimentacaoService.add({
+      id: crypto.randomUUID(),
+      materialId: material.id,
+      materialNome: material.nome,
+      tipo: 'ENTRADA',
+      quantidade,
+      data: new Date().toISOString(),
+      responsavel,
+      observacao
+    });
+  }
+
+  registrarSaida(
+    materialId: string,
+    quantidade: number,
+    responsavel: string,
+    observacao?: string,
+    viaturaId?: string
+  ): void {
+    const material = this.getById(materialId);
+
+    if (!material) {
+      return;
+    }
+
+    material.quantidade -= quantidade;
+
+    if (material.quantidade < 0) {
+      material.quantidade = 0;
+    }
+
+    this.update(material);
+
+    this.movimentacaoService.add({
+      id: crypto.randomUUID(),
+      materialId: material.id,
+      materialNome: material.nome,
+      tipo: 'SAIDA',
+      quantidade,
+      data: new Date().toISOString(),
+      responsavel,
+      observacao,
+      viaturaId
+    });
   }
 }

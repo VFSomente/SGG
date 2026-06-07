@@ -68,7 +68,7 @@ export class ManutencaoFormComponent implements OnInit, OnChanges {
       servico: ['', Validators.required],
       profissional: ['', Validators.required],
       observacao: [''],
-      custo: [0],
+      pecasUtilizadas: [[]],
       novasPecas: ['']
     });
   }
@@ -88,7 +88,7 @@ export class ManutencaoFormComponent implements OnInit, OnChanges {
         servico: '',
         profissional: '',
         observacao: '',
-        custo: 0,
+        pecasUtilizadas: [],
         novasPecas: ''
       });
       return;
@@ -99,7 +99,7 @@ export class ManutencaoFormComponent implements OnInit, OnChanges {
       servico: this.manutencao.servico,
       profissional: this.manutencao.profissional,
       observacao: this.manutencao.observacao,
-      custo: this.manutencao.custo || 0
+      pecasUtilizadas: this.manutencao.pecasUtilizadas || []
     });
   }
 
@@ -108,6 +108,14 @@ export class ManutencaoFormComponent implements OnInit, OnChanges {
     if (!pecasArray.includes(peca.id)) {
       pecasArray.push(peca.id);
       this.form.patchValue({ pecasUtilizadas: pecasArray });
+      // Subtrai imediatamente do almoxarifado quando a peça existe
+      try {
+        this.almoxarifadoService.saida(peca.id, 1);
+        // atualizar lista local para refletir nova quantidade
+        this.carregarPecas();
+      } catch (e) {
+        // silencioso — serviço já lida com inexistência
+      }
     }
   }
 
@@ -134,14 +142,10 @@ export class ManutencaoFormComponent implements OnInit, OnChanges {
       servico: this.form.get('servico')?.value,
       profissional: this.form.get('profissional')?.value,
       observacao: this.form.get('observacao')?.value,
-      pecasUtilizadas: pecasArray,
-      custo: this.form.get('custo')?.value
+      pecasUtilizadas: pecasArray
     };
 
-    // Atualizar estoque para cada peça
-    pecasArray.forEach((pecaId: string) => {
-      this.almoxarifadoService.saida(pecaId, 1);
-    });
+    // Observação: estoque já foi atualizado ao adicionar cada peça.
 
     this.salvar.emit(manutencao);
   }
@@ -152,5 +156,14 @@ export class ManutencaoFormComponent implements OnInit, OnChanges {
 
   getNomePeca(pecaId: string): string {
     return this.pecasDisponiveis.find(p => p.id === pecaId)?.nome || pecaId;
+  }
+
+  adicionarPecaPorNome(nome: string): void {
+    if (!nome || !nome.trim()) return;
+    const encontrado = this.pecasDisponiveis.find(p => p.nome.toLowerCase() === nome.trim().toLowerCase());
+    if (encontrado) {
+      this.adicionarPeca(encontrado);
+      this.form.patchValue({ novasPecas: '' });
+    }
   }
 }

@@ -51,6 +51,11 @@ export class Viaturas implements OnInit {
     );
   }
 
+  limparPesquisa(): void {
+    this.pesquisa = '';
+    this.viaturasFiltradas = [...this.viaturas];
+  }
+
   abrirCadastro(): void {
     this.viaturaEditando = undefined;
     this.mostrarFormulario = true;

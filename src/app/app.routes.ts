@@ -14,6 +14,14 @@ export const routes: Routes = [
 			loadComponent: () => import('./pages/viatura-detalhe/viatura-detalhe.component').then(m => m.ViaturaDetalhe)
 		},
 	{
+		path: 'almoxarifado',
+		loadComponent: () => import('./pages/almoxarifado/almoxarifado.component').then(m => m.Almoxarifado)
+	},
+	{
+		path: 'backup',
+		loadComponent: () => import('./pages/backup/backup.component').then(m => m.BackupComponent)
+	},
+	{
 		path: '**',
 		redirectTo: '',
 		pathMatch: 'full'

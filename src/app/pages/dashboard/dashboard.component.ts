@@ -6,6 +6,7 @@ import { Alerta } from '../../models/alerta.model';
 import { AlmoxarifadoService } from '../../services/almoxarifado.service';
 import { AlertaService } from '../../services/alerta.service';
 import { ViaturaService } from '../../services/viatura.service';
+import { MovimentacaoService } from '../../services/movimentacao.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -26,18 +27,25 @@ export class DashboardComponent implements OnInit {
 
   viaturasRecentes: any[] = [];
 
+  movimentacoesRecentes: any[] = [];
+
   alertas: Alerta[] = [];
 
   constructor(
     private almoxarifadoService: AlmoxarifadoService,
     private viaturaService: ViaturaService,
-    private alertaService: AlertaService
+    private alertaService: AlertaService,
+    private movimentacaoService: MovimentacaoService
   ) {}
 
   ngOnInit(): void {
     this.carregarIndicadores();
     this.alertas = this.alertaService.getAlertas();
     this.viaturasRecentes = this.viaturaService.getAll().slice(0, 5);
+    this.movimentacoesRecentes = this.movimentacaoService.getAll()
+      .slice()
+      .sort((a, b) => new Date(b.data).getTime() - new Date(a.data).getTime())
+      .slice(0, 5);
   }
 
   carregarIndicadores(): void {
@@ -74,6 +82,10 @@ export class DashboardComponent implements OnInit {
       viaturas.filter(
         v => v.status === 'BAIXADA'
       ).length;
+  }
+
+  getViaturaPrefixo(id: string): string | undefined {
+    return this.viaturaService.getById(id)?.prefixo;
   }
 
 }

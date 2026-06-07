@@ -1,1 +1,13 @@
-<p>backup works!</p>
+<div class="backup-page">
+  <h1>Backup de Dados</h1>
+  <p>O backup automático local salva seus dados a cada 5 minutos no armazenamento do navegador.</p>
+
+  <div class="backup-actions">
+    <button class="back-button" routerLink="/">Voltar ao Dashboard</button>
+    <button class="export-button" (click)="exportar()">Exportar Backup JSON</button>
+    <label class="import-label">
+      Importar Backup
+      <input type="file" accept="application/json" (change)="importar($event)" />
+    </label>
+  </div>
+</div>

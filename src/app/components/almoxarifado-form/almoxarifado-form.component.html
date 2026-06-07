@@ -1,1 +1,76 @@
-<p>almoxarifado-form works!</p>
+<div class="modal-backdrop" (click)="cancelar()">
+	<form [formGroup]="form" (ngSubmit)="salvarMaterial()" class="material-form" (click)="$event.stopPropagation()" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+
+		<div class="form-card">
+
+			<header class="form-header">
+				<h2 id="modalTitle">{{ material ? 'Editar Material' : 'Novo Material' }}</h2>
+				<button type="button" class="close" (click)="cancelar()" aria-label="Fechar">✕</button>
+			</header>
+
+			<div class="form-body">
+
+				<div class="field">
+					<label>Nome</label>
+					<input class="input" formControlName="nome" placeholder="Nome do material" />
+					<div class="error" *ngIf="nome && nome.invalid && nome.touched">
+						<small *ngIf="nome.errors && nome.errors['required']">Nome é obrigatório.</small>
+						<small *ngIf="nome.errors && nome.errors['minlength']">Mínimo 3 caracteres.</small>
+					</div>
+				</div>
+
+				<div class="field">
+					<label>Categoria</label>
+					<select class="input" formControlName="categoria">
+						<option value="" disabled>Selecione</option>
+						<option *ngFor="let c of categorias" [value]="c">{{ c }}</option>
+					</select>
+					<div class="error" *ngIf="categoria && categoria.invalid && categoria.touched">
+						<small>Selecione uma categoria.</small>
+					</div>
+				</div>
+
+				<div class="row two">
+					<div class="field">
+						<label>Quantidade</label>
+						<input class="input" type="number" formControlName="quantidade" />
+						<div class="error" *ngIf="quantidade && quantidade.invalid && quantidade.touched">
+							<small *ngIf="quantidade.errors && quantidade.errors['min']">Valor deve ser >= 0.</small>
+						</div>
+					</div>
+
+					<div class="field">
+						<label>Estoque mínimo</label>
+						<input class="input" type="number" formControlName="estoqueMinimo" />
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="field">
+						<label>Validade</label>
+						<input class="input" type="date" formControlName="validade" />
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="field file-field">
+						<label>Imagem</label>
+						<input type="file" (change)="selecionarImagem($event)" accept="image/*" />
+					</div>
+
+					<div class="preview" *ngIf="previewImagem">
+						<img [src]="previewImagem" alt="Preview" />
+					</div>
+				</div>
+
+			</div>
+
+			<footer class="form-footer">
+				<button class="btn btn-primary" type="submit" [disabled]="form.invalid">Salvar</button>
+				<button class="btn btn-ghost" type="button" (click)="cancelar()">Cancelar</button>
+			</footer>
+
+		</div>
+
+	</form>
+</div>

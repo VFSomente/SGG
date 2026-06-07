@@ -15,7 +15,25 @@
   </header>
 
   <div class="search-row">
-    <input type="text" placeholder="🔍 Pesquisar" [(ngModel)]="pesquisa" (input)="pesquisar()" />
+    <div class="search-container">
+      <span class="search-icon">🔍</span>
+      <input 
+        type="text" 
+        placeholder="Pesquisar viaturas..." 
+        [(ngModel)]="pesquisa" 
+        (input)="pesquisar()"
+        class="search-input"
+      />
+      <button 
+        *ngIf="pesquisa" 
+        type="button" 
+        class="clear-btn"
+        (click)="limparPesquisa()"
+        title="Limpar pesquisa"
+      >
+        ✕
+      </button>
+    </div>
   </div>
 
   <section class="viaturas-lista">

@@ -22,16 +22,21 @@
       <textarea placeholder="Detalhes adicionais..." formControlName="observacao"></textarea>
     </div>
 
-    <div class="field">
-      <label>Custo (Opcional)</label>
-      <input type="number" placeholder="0.00" formControlName="custo" />
-    </div>
+    
 
     <div class="field">
       <label>Peças Utilizadas</label>
+      <div class="field-inline">
+        <input placeholder="Adicionar por nome" formControlName="novasPecas" />
+        <button type="button" (click)="adicionarPecaPorNome(form.get('novasPecas')?.value)">Adicionar</button>
+      </div>
       <div class="pecas-lista">
-        <div *ngFor="let peca of pecasDisponiveis" class="peca-item">
-          <button type="button" (click)="adicionarPeca(peca)">+ {{ peca.nome }}</button>
+        <div *ngFor="let peca of pecasDisponiveis" class="peca-item" [class.low-stock]="peca.quantidade <= peca.estoqueMinimo">
+          <button type="button" (click)="adicionarPeca(peca)" [disabled]="peca.quantidade <= 0">
+            + {{ peca.nome }}
+            <span class="peca-qty" *ngIf="peca.quantidade >= 0">({{ peca.quantidade }})</span>
+          </button>
+          <span class="sem-estoque" *ngIf="peca.quantidade <= 0">Sem estoque</span>
         </div>
       </div>
       <div *ngIf="form.get('pecasUtilizadas')?.value?.length" class="pecas-selecionadas">

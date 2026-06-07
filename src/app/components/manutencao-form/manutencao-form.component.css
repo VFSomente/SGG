@@ -54,6 +54,23 @@
   background: var(--surface);
 }
 
+.peca-qty{
+  margin-left:8px;
+  font-weight:700;
+  color:var(--text-secondary);
+}
+
+.sem-estoque{display:inline-block;margin-left:8px;color:var(--danger)}
+
+.low-stock .peca-qty{
+  color:var(--danger);
+}
+
+.low-stock .peca-item-button,
+.low-stock button{
+  border-color:var(--danger);
+}
+
 .pecas-selecionadas {
   padding: 8px;
   background: var(--surface-strong);

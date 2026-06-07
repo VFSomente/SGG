@@ -1,1 +1,42 @@
-<p>material-card works!</p>
+<article class="material-card">
+  <img
+    class="imagem"
+    [src]="material.imagem || 'https://via.placeholder.com/420x240?text=Sem+imagem'"
+    [alt]="material.nome"
+  />
+
+  <div class="content">
+    <div class="top-line">
+      <div>
+        <h3>{{ material.nome }}</h3>
+        <div class="categoria">{{ material.categoria }}</div>
+      </div>
+    </div>
+
+    <div class="info-row">
+      <span>📦 Estoque</span>
+      <strong>{{ material.quantidade }}</strong>
+    </div>
+
+    <div class="info-row">
+      <span>📍 Local</span>
+      <strong>{{ material.localizacao || 'Não informado' }}</strong>
+    </div>
+
+    <div class="badges">
+      <span *ngIf="estoqueBaixo()" class="badge badge-estoque">
+        ⚠ Estoque baixo
+      </span>
+      <span *ngIf="material.validade" class="badge badge-validade">
+        ⚠ Vence em {{ diasParaVencer() }} dias
+      </span>
+    </div>
+
+    <div class="acoes">
+      <button class="entrada" type="button" (click)="entradaMaterial()">Entrada</button>
+      <button class="saida" type="button" (click)="saidaMaterial()">Saída</button>
+      <button class="editar" type="button" (click)="editarMaterial()">Editar</button>
+      <button class="delete" type="button" (click)="excluirMaterial()">Excluir</button>
+    </div>
+  </div>
+</article>

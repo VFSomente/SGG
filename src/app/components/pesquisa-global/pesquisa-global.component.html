@@ -1,0 +1,24 @@
+<section class="pesquisa-global">
+  <div class="search-box">
+    <span class="search-icon">🔎</span>
+    <input
+      type="search"
+      placeholder="Pesquisar viatura, material, missão ou manutenção..."
+      (input)="pesquisar($any($event.target).value)"
+    />
+  </div>
+
+  <div class="resultados" *ngIf="pesquisa">
+    <p *ngIf="!resultados.length" class="nenhum">Nenhum resultado encontrado.</p>
+
+    <div class="resultado-card" *ngFor="let item of resultados">
+      <div class="resultado-meta">
+        <span class="categoria">{{ item.categoria }}</span>
+        <strong>{{ item.titulo }}</strong>
+      </div>
+      <p *ngIf="item.subtitulo">{{ item.subtitulo }}</p>
+      <p *ngIf="item.detalhe">{{ item.detalhe }}</p>
+      <small *ngIf="item.extra">{{ item.extra }}</small>
+    </div>
+  </div>
+</section>

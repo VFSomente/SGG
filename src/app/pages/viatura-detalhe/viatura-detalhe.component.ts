@@ -5,6 +5,7 @@ import { Viatura } from '../../models/viatura.model';
 import { ViaturaService } from '../../services/viatura.service';
 import { ViaturaCardComponent } from '../../components/viatura-card/viatura-card.component';
 import { ManutencaoFormComponent } from '../../components/manutencao-form/manutencao-form.component';
+import { MissaoFormComponent } from '../../components/missao-form/missao-form.component';
 import { MissaoService } from '../../services/missao.service';
 import { ManutencaoService } from '../../services/manutencao.service';
 import { Missao } from '../../models/missao.model';
@@ -13,7 +14,7 @@ import { Manutencao } from '../../models/manutencao.model';
 @Component({
   selector: 'app-viatura-detalhe',
   standalone: true,
-  imports: [CommonModule, RouterModule, ViaturaCardComponent, ManutencaoFormComponent],
+  imports: [CommonModule, RouterModule, ViaturaCardComponent, ManutencaoFormComponent, MissaoFormComponent],
   templateUrl: './viatura-detalhe.component.html',
   styleUrls: ['./viatura-detalhe.component.css']
 })
@@ -26,6 +27,9 @@ export class ViaturaDetalhe implements OnInit {
 
   mostrarFormularioManutencao = false;
   manutencaoEditando?: Manutencao;
+
+  mostrarFormularioMissao = false;
+  missaoEditando?: Missao;
 
   constructor(
     private route: ActivatedRoute,
@@ -73,35 +77,29 @@ export class ViaturaDetalhe implements OnInit {
     this.fecharFormularioManutencao();
   }
 
-  async adicionarMissao() {
-    if (!this.viatura) return;
+  abrirFormularioMissao(missao?: Missao): void {
+    this.missaoEditando = missao;
+    this.mostrarFormularioMissao = true;
+  }
 
-    const descricao = prompt('Descrição da missão:');
-    if (!descricao) return;
+  fecharFormularioMissao(): void {
+    this.mostrarFormularioMissao = false;
+    this.missaoEditando = undefined;
+  }
 
-    const kmSaidaStr = prompt('Km saída:');
-    const kmChegadaStr = prompt('Km chegada:');
-    const kmSaida = Number(kmSaidaStr || 0);
-    const kmChegada = Number(kmChegadaStr || 0);
+  salvarMissao(missao: Missao): void {
+    if (this.missaoEditando) {
+      this.missaoService.update(missao);
+    } else {
+      this.missaoService.add(missao);
+    }
 
-    const observacao = prompt('Observação:') || '';
+    if (this.viatura) {
+      this.missoes = this.missaoService.getByViaturaId(this.viatura.id);
+      this.viatura = this.viaturaService.getById(this.viatura.id);
+    }
 
-    const nova: Missao = {
-      id: Date.now().toString(36),
-      viaturaId: this.viatura.id,
-      data: new Date().toISOString().split('T')[0],
-      horaSaida: '',
-      horaChegada: '',
-      kmSaida,
-      kmChegada,
-      missao: descricao,
-      observacao
-    };
-
-    this.missaoService.add(nova);
-    this.missoes = this.missaoService.getByViaturaId(this.viatura.id);
-    // viatura odometro atualizado pelo service
-    this.viatura = this.viaturaService.getById(this.viatura.id);
+    this.fecharFormularioMissao();
   }
 
   getKmParaTrocaOleo(): number {

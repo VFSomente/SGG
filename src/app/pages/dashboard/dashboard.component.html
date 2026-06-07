@@ -6,6 +6,12 @@
 		<a routerLink="/viaturas" class="goto-viaturas">
 			Ver Viaturas
 		</a>
+		<a routerLink="/almoxarifado" class="goto-almoxarifado">
+			Almoxarifado
+		</a>
+		<a routerLink="/backup" class="goto-backup">
+			Backup de Dados
+		</a>
 	</div>
 
 	<div class="cards">
@@ -42,6 +48,25 @@
 
       <h3>{{ alerta.titulo }}</h3>
       <p>{{ alerta.descricao }}</p>
+    </div>
+  </div>
+
+  <div class="movimentacoes">
+    <h2>Últimas Movimentações</h2>
+
+    <div class="movimentacao-card" *ngFor="let item of movimentacoesRecentes">
+      <div class="movimentacao-header">
+        <span class="badge" [ngClass]="item.tipo === 'SAIDA' ? 'saida' : 'entrada'">
+          {{ item.tipo === 'SAIDA' ? '⬇ Saída' : '⬆ Entrada' }}
+        </span>
+        <small>{{ item.data | date:'HH:mm' }}</small>
+      </div>
+
+      <strong>{{ item.materialNome }}</strong>
+      <p>{{ item.quantidade }} {{ item.quantidade === 1 ? 'unidade' : 'unidades' }}</p>
+      <p *ngIf="item.viaturaId">Utilizado na: {{ getViaturaPrefixo(item.viaturaId) || item.viaturaId }}</p>
+      <p>Responsável: {{ item.responsavel }}</p>
+      <p *ngIf="item.observacao">Observação: {{ item.observacao }}</p>
     </div>
   </div>
 

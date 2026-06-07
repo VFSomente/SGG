@@ -1,0 +1,72 @@
+.backup-page {
+  padding: 24px;
+  max-width: 780px;
+  color: var(--text);
+}
+
+.backup-page h1 {
+  margin-bottom: 16px;
+}
+
+.backup-page p {
+  margin-bottom: 24px;
+  color: var(--text-secondary);
+}
+
+.backup-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.backup-actions button,
+.import-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  padding: 12px 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform .15s ease, box-shadow .15s ease, background .15s ease, border-color .15s ease;
+}
+
+.backup-actions button:hover,
+.import-label:hover {
+  transform: translateY(-1px);
+}
+
+.back-button {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.export-button {
+  background: var(--primary);
+  color: white;
+  border: 1px solid transparent;
+  box-shadow: 0 10px 24px rgba(59, 130, 246, 0.18);
+}
+
+.export-button:hover {
+  background: var(--primary-strong);
+}
+
+.import-label {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.import-label:hover {
+  background: var(--surface-alt);
+}
+
+.import-label input {
+  display: none;
+}
+
+.import-label input {
+  display: none;
+}

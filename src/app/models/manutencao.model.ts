@@ -6,5 +6,5 @@ export interface Manutencao {
   profissional: string;
   observacao: string;
   pecasUtilizadas: string[];
-  custo?: number;
+  // custo removed: tracked via related records or despesas
 }

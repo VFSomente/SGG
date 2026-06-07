@@ -1,10 +1,14 @@
 <div class="app-shell">
 	<header class="app-header">
-		<h1>SGG</h1>
-		<button class="theme-toggle" (click)="toggleTheme()">
-			{{ theme() === 'dark' ? 'Modo Claro' : 'Modo Escuro' }}
+		<h1>🚗 SGG</h1>
+		<button class="theme-toggle" (click)="toggleTheme()" [title]="theme() === 'dark' ? 'Ativar modo claro' : 'Ativar modo escuro'">
+			<span class="theme-toggle-icon">
+				{{ theme() === 'dark' ? '☀️' : '🌙' }}
+			</span>
+			<span>{{ theme() === 'dark' ? 'Claro' : 'Escuro' }}</span>
 		</button>
 	</header>
+
 	<main>
 		<router-outlet></router-outlet>
 	</main>

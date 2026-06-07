@@ -1,1 +1,55 @@
-<p>almoxarifado works!</p>
+<div class="container">
+
+  <h1>Almoxarifado</h1>
+
+  <div class="top-bar">
+
+    <a routerLink="/" class="back-dashboard">
+      ← Dashboard
+    </a>
+
+    <input
+      type="text"
+      placeholder="Pesquisar material..."
+      [(ngModel)]="pesquisa"
+      (input)="pesquisar()"
+    >
+
+    <button (click)="abrirNovoMaterial()">
+      Novo Material
+    </button>
+
+  </div>
+
+  <app-material-form
+    *ngIf="mostrarFormulario"
+    [material]="materialEditando"
+    (salvar)="salvarMaterial($event)"
+    (fechar)="fecharFormulario()">
+  </app-material-form>
+
+  <div class="categorias">
+
+    <button
+      *ngFor="let categoria of categorias"
+      (click)="filtrarCategoria(categoria)"
+      [class.active]="categoriaSelecionada === categoria">
+
+      {{ categoria }}
+
+    </button>
+
+  </div>
+
+  <div class="grid">
+    <app-material-card
+      *ngFor="let material of materiaisFiltrados"
+      [material]="material"
+      (entrada)="entrada($event)"
+      (saida)="saida($event)"
+      (editar)="editarMaterial($event)"
+      (excluir)="excluir($event)">
+    </app-material-card>
+  </div>
+
+</div>

@@ -1,0 +1,67 @@
+<div class="missao-form">
+  <header class="form-header">
+    <h3>{{ missao ? 'Editar Missão' : 'Registrar Missão' }}</h3>
+    <button type="button" class="close" (click)="cancelar()">✕</button>
+  </header>
+
+  <form [formGroup]="form" (ngSubmit)="salvarMissao()">
+    <div class="row two">
+      <div class="field">
+        <label>Data</label>
+        <input type="date" formControlName="data" />
+      </div>
+
+      <div class="field">
+        <label>Missão</label>
+        <input type="text" placeholder="Descrição da missão" formControlName="missao" />
+        <div class="error" *ngIf="descricao?.invalid && descricao?.touched">
+          <small>Informe o objetivo da missão.</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="row two">
+      <div class="field">
+        <label>Hora Saída</label>
+        <input type="time" formControlName="horaSaida" />
+        <div class="error" *ngIf="horaSaida?.invalid && horaSaida?.touched">
+          <small>Informe a hora de saída.</small>
+        </div>
+      </div>
+      <div class="field">
+        <label>Hora Chegada</label>
+        <input type="time" formControlName="horaChegada" />
+        <div class="error" *ngIf="horaChegada?.invalid && horaChegada?.touched">
+          <small>Informe a hora de chegada.</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="row two">
+      <div class="field">
+        <label>Km Saída</label>
+        <input type="number" formControlName="kmSaida" />
+        <div class="error" *ngIf="kmSaida?.invalid && kmSaida?.touched">
+          <small>Km de saída deve ser maior ou igual a zero.</small>
+        </div>
+      </div>
+      <div class="field">
+        <label>Km Chegada</label>
+        <input type="number" formControlName="kmChegada" />
+        <div class="error" *ngIf="kmChegada?.invalid && kmChegada?.touched">
+          <small>Km de chegada deve ser maior ou igual a zero.</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Observação</label>
+      <textarea placeholder="Observações da missão" formControlName="observacao"></textarea>
+    </div>
+
+    <footer class="form-footer">
+      <button class="btn btn-primary" type="submit" [disabled]="form.invalid">Salvar</button>
+      <button class="btn btn-ghost" type="button" (click)="cancelar()">Cancelar</button>
+    </footer>
+  </form>
+</div>

@@ -7,21 +7,48 @@
 }
 
 .dashboard-actions {
-  margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 28px;
+}
+
+.dashboard-actions a {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 22px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 700;
+  transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+}
+
+.dashboard-actions a:hover {
+  transform: translateY(-1px);
 }
 
 .goto-viaturas {
-  display: inline-block;
-  background: var(--primary);
+  background: linear-gradient(135deg, #0ea5e9, #3b82f6);
   color: white;
-  padding: 10px 18px;
-  border-radius: 10px;
-  text-decoration: none;
-  font-weight: 600;
+  box-shadow: 0 12px 30px rgba(59,130,246,.18);
 }
 
-.goto-viaturas:hover {
-  background: var(--primary-strong);
+.goto-almoxarifado {
+  background: linear-gradient(135deg, #16a34a, #22c55e);
+  color: white;
+  box-shadow: 0 12px 30px rgba(34,197,94,.18);
+}
+
+.goto-backup {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  box-shadow: 0 8px 20px rgba(0,0,0,.08);
+}
+
+.goto-backup:hover {
+  background: var(--surface-alt);
 }
 
 .cards {
@@ -129,4 +156,57 @@
 
 .baixa {
   background: #27ae60;
+}
+
+.goto-backup {
+  display: inline-block;
+  background: var(--surface);
+  color: inherit;
+  border: 1px solid var(--border);
+  padding: 10px 18px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.goto-backup:hover {
+  background: var(--surface-alt);
+}
+
+.movimentacoes {
+  margin-top: 30px;
+  background: var(--surface);
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0,0,0,.1);
+}
+
+.movimentacao-card {
+  margin-top: 12px;
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+}
+
+.movimentacao-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.badge {
+  padding: 0.5rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+}
+
+.badge.entrada {
+  background: rgba(46, 204, 113, 0.15);
+  color: #218c47;
+}
+
+.badge.saida {
+  background: rgba(231, 76, 60, 0.15);
+  color: #c0392b;
 }

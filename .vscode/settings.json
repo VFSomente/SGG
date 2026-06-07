@@ -1,0 +1,30 @@
+{
+    "workbench.colorTheme": "Bearded Theme OLED (Experimental)",
+    "workbench.startupEditor": "none",
+    "explorer.compactFolders": false,
+    "editor.fontSize": 20,
+    "code-runner.runInTerminal": true,
+    "code-runner.clearPreviousOutput": true,
+    "code-runner.executorMap": {
+        "python": "cls ; python -u",
+    },
+    "code-runner.ignoreSelection": true,
+    "workbench.iconTheme": "material-icon-theme",
+    "python.defaultInterpreterPath": "python",
+    "editor.fontFamily": "JetBrains Mono",
+    "terminal.integrated.fontFamily": "monospace",
+    "explorer.confirmDragAndDrop": false,
+    "editor.minimap.enabled": false,
+    "workbench.editorAssociations": {
+        "*.class": "default"
+    },
+    "redhat.telemetry.enabled": true,
+    "editor.renderWhitespace": "all",
+    "terminal.integrated.enableMultiLinePasteWarning": false,
+    "debug.console.fontSize": 20,
+    "terminal.integrated.fontSize": 20,
+    "terminal.integrated.fontWeight": "JetBrains Mono",
+    "editor.fontLigatures": true,
+    "explorer.confirmDelete": false,
+
+}

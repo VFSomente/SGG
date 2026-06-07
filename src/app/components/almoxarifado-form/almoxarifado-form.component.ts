@@ -1,6 +1,7 @@
 import {
   Component,
   EventEmitter,
+  HostListener,
   Input,
   OnInit,
   Output
@@ -105,10 +106,6 @@ export class AlmoxarifadoFormComponent implements OnInit {
         ''
       ],
 
-      localizacao: [
-        ''
-      ],
-
       imagem: [
         ''
       ]
@@ -128,8 +125,6 @@ export class AlmoxarifadoFormComponent implements OnInit {
       estoqueMinimo: this.material?.estoqueMinimo,
 
       validade: this.material?.validade,
-
-      localizacao: this.material?.localizacao,
 
       imagem: this.material?.imagem
     });
@@ -189,6 +184,11 @@ export class AlmoxarifadoFormComponent implements OnInit {
 
   cancelar(): void {
     this.fechar.emit();
+  }
+
+  @HostListener('document:keydown.escape')
+  onEscape(): void {
+    this.cancelar();
   }
 
   get nome() {
